@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="brand_main">#e54233</color>
+    <color name="text">#6a7079</color>
+    <color name="text_de_emphasized">#cc0202</color>
+    <color name="text_faint">#a2a964</color>
+    <color name="text_descr">#256568</color>
+    <color name="item_city">#dd0f1260</color>
+    <color name="white">#99ffffff</color>
+</resources>

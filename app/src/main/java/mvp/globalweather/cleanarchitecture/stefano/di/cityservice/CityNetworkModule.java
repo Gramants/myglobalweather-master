@@ -1,0 +1,43 @@
+package mvp.globalweather.cleanarchitecture.stefano.di.cityservice;
+
+import javax.inject.Singleton;
+
+import dagger.Module;
+import dagger.Provides;
+import mvp.globalweather.cleanarchitecture.stefano.util.Constant;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+@Module
+public class CityNetworkModule {
+
+    private String mBaseUrl;
+
+    public CityNetworkModule(String baseUrl) {
+        mBaseUrl = baseUrl;
+    }
+
+    @Provides
+    @Singleton
+    RxJavaCallAdapterFactory provideRxJavaCallAdapterFactory() {
+        return RxJavaCallAdapterFactory.create();
+    }
+
+    @Provides
+    @Singleton
+    GsonConverterFactory provideGsonConverterFactory() {
+        return GsonConverterFactory.create();
+    }
+
+
+    @Provides
+    @Singleton
+    Retrofit provideRetrofit(GsonConverterFactory gsonConverterFactory, RxJavaCallAdapterFactory callAdapterFactory) {
+        return new Retrofit.Builder()
+                .baseUrl(mBaseUrl)
+                .addConverterFactory(gsonConverterFactory)
+                .addCallAdapterFactory(callAdapterFactory)
+                .build();
+    }
+}

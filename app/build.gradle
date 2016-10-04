@@ -1,0 +1,102 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "24.0.2"
+    testBuildType 'debug'
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0"
+        testApplicationId 'mvp.globalweather.cleanarchitecture.stefano.cucumber.test'
+        testInstrumentationRunner 'mvp.globalweather.cleanarchitecture.stefano.cucumber.test.Instrumentation'
+
+    }
+
+    sourceSets {
+        androidTest {
+            assets.srcDirs = ['src/androidTest/assets']
+        }
+    }
+
+    lintOptions {
+        disable 'InvalidPackage'
+        abortOnError false
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+
+
+
+
+    packagingOptions {
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/MANIFEST.MF'
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+        exclude 'META-INF/maven/com.google.guava/guava/pom.properties'
+        exclude 'META-INF/maven/com.google.guava/guava/pom.xml'
+
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: '*.jar')
+    Map<String, String> dependencies = rootProject.ext.dependencies;
+
+    compile dependencies.appCompat
+    compile dependencies.cardView
+    compile dependencies.recyclerView
+    compile dependencies.design
+
+
+
+    compile dependencies.retrofit
+    compile dependencies.retrofitlogging
+    compile dependencies.retrofitConverterGson
+    compile dependencies.retrofitAdapterRxJava
+
+
+    compile dependencies.rxAndroid
+    compile dependencies.rxAndroidJava
+    compile dependencies.rxBinding
+
+    compile dependencies.butterKnife
+    apt 'com.google.dagger:dagger-compiler:2.1'
+    compile 'com.google.dagger:dagger:2.1'
+    provided 'org.glassfish:javax.annotation:10.0-b28'
+
+
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.0'
+    androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
+
+
+
+
+    androidTestCompile('info.cukes:cucumber-android:1.2.4') {
+        exclude module: 'cucumber-jvm-deps'
+    }
+
+    androidTestCompile('info.cukes:cucumber-picocontainer:1.2.4') {
+        exclude module: 'cucumber-jvm-deps'
+    }
+
+    // androidTestCompile 'com.android.support:support-annotations:23.1.1'
+    // androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
+
+    androidTestCompile 'info.cukes:cucumber-jvm-deps:1.0.3'
+
+}
